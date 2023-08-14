@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="./public/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+    <style>
+        /* Style the body */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+        }
+        /* Style the header */
+        header {
+            background-color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+        }
+        /* Container for flexboxes */
+        section {
+            display: -webkit-flex;
+            display: flex;
+        }
+        /* Style the navigation menu */
+        nav {
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            background: #ccc;
+            padding: 20px;
+        }
+        /* Style the list inside the menu */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        /* Style the content */
+        article {
+            -webkit-flex: 3;
+            -ms-flex: 3;
+            flex: 3;
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+        /* Style the footer */
+        footer {
+            background-color: #777;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+        @media (max-width: 600px) {
+            section {
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            }
+        }
+        /* Style the login button */
+        #login {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        /* Change the width of the sidebar to 250px and the left margin of the page content to 250px */
+        #mySidebar {
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        /* The sidebar links */
+        #mySidebar .sidebar a {
+            padding: 15px;
+            font-size: 16px;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+        /* When you mouse over the navigation links, change their color */
+        #mySidebar .sidebar a:hover {
+            color: #f1f1f1;
+        }
+        /* Style page content */
+        .main {
+            margin-left: 250px; /* Same as the width of the sidebar */
+            padding: 0px 10px;
+        }
+        /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            #mySidebar {
+            padding-top: 15px;
+            }
+            #mySidebar a {
+            font-size: 18px;
+            }
+        }
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            /* z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            /* height: 100%; /* Full height */
+            /* overflow: auto; /* Enable scroll if needed */
+            /* background-color: rgb(0,0,0); /* Fallback color */
+            /* background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+        .p-1{
+            padding: 10px;
+        }
+        body {
+            background-color: #f1f1f1;
+        }
+        /* Set a style for all buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: auto;
+        }
+        /* Add a hover effect for buttons */
+        button:hover {
+            opacity: 0.8;
+        }
+        /* Extra style for the cancel button (red) */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+        .container {
+            padding: 16px;
+        }
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            /* z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            /* height: 100%; /* Full height */
+            /* overflow: auto; /* Enable scroll if needed */
+            /* background-color: rgb(0,0,0); /* Fallback color */
+            /* background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            /* border: 1px solid #888; */
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+        /* The Close Button (x) */
+        .close {
+            /* position: absolute; */
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            /* font-weight: bold; */
+        }
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+        @-webkit-keyframes animatezoom {
+            from {-webkit-transform: scale(0)} 
+            to {-webkit-transform: scale(1)}
+        }
+        @keyframes animatezoom {
+            from {transform: scale(0)} 
+            to {transform: scale(1)}
+        }
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+            display: block;
+            float: none;
+            }
+            .cancelbtn {
+            width: 100%;
+            }
+        }
+        </style>
+</head>
+<body>
+    <!-- create a simple page with bootstrap -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <img class="img" src="https://learner.ta3leem.iq/asset-v1:Ta3leem+1+2022_2023+type@asset+block@كتاب_العلوم_الاول_الابتدائي-min-037.jpg"> -->
+            </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-12">
+                    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+                    <div id="id01" class="modal">
+                        <form class="modal-content animate" action="#">
+                            <div class="imgcontainer">
+                                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+                                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
+                            </div>
+                            <div class="container">
+                                <label for="uname"><b>Username</b></label>
+                                <input type="text" placeholder="Enter Username" name="uname" required>
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" placeholder="Enter Password" name="psw" required>
+                                <button type="submit">Login</button>
+                                <label>
+                                <input type="checkbox" checked="checked" name="remember"> Remember me
+                                </label>
+                            </div>
+                            <div class="container" style="background-color:#f1f1f1">
+                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                                <span class="psw">Forgot <a href="#">password?</a></span>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <main id="main" class="container mt-5">
+                        <header class="jumbotron py-3 w-75 mx-auto">
+                          <h1>Ice Cream Poll</h1>
+                        </header>
+                        <form>
+                          <legend class="text-center py-3 col-lg-6 mx-auto">
+                            Rank the following ice cream flavors from most to least favorite and
+                            select the flavor you've had most recently.
+                            <br />
+                            (Drag to order)
+                          </legend>
+                          <div
+                            id="list"
+                            class="card mx-auto col-lg-4 col-md-5 py-5 px-5 shadow-lg "
+                          >
+                            <label
+                              draggable="true"
+                              class="item mx-auto"
+                              for="radio-vanilla"
+                              id="opt1"
+                            >
+                              <input
+                                type="radio"
+                                name="flavor"
+                                id="radio-vanilla"
+                                value="vanilla"
+                              />
+                              Vanilla
+                            </label>
+                  
+                            <label
+                              draggable="true"
+                              class=" item mx-auto"
+                              for="radio-scheesecake"
+                              id="opt2"
+                            >
+                              <input
+                                type="radio"
+                                name="flavor"
+                                id="radio-scheesecake"
+                                value="strawberry-cheesecake"
+                              />
+                              Strawberry Cheesecake
+                            </label>
+                  
+                            <label
+                              draggable="true"
+                              class="item mx-auto"
+                              for="radio-chunmonkey"
+                              id="opt3"
+                            >
+                              <input
+                                type="radio"
+                                name="flavor"
+                                id="radio-chunmonkey"
+                                value="chunky-monkey"
+                              />
+                              Chunky Monkey
+                            </label>
+                  
+                            <label
+                              draggable="true"
+                              class="item mx-auto"
+                              for="radio-urbanbourbon"
+                              id="opt4"
+                            >
+                              <input
+                                type="radio"
+                                name="flavor"
+                                id="radio-urbanbourbon"
+                                value="urban-bourbon"
+                              />
+                              Urban Bourbon
+                            </label>
+                            <label
+                              draggable="true"
+                              class="item mx-auto"
+                              for="radio-choc-fudge"
+                              id="opt5"
+                            >
+                              <input
+                                type="radio"
+                                name="flavor"
+                                id="radio-choc-fudge"
+                                value="chocolate-fudge-brownie"
+                              />
+                              Chocolate Fudge Brownie
+                            </label>
+                          </div>
+                          <button class="submit btn-lg my-5 px-3">View Results</button>
+                        </form>
+                        <p id="error" class="error"></p>
+                        <p class="result"></p>
+                      </main>
+                  
+                      <footer class="pt-5 text-center">
+                        <p>© coded by Jo</p>
+                      </footer>
+                     
+                     
+                     
+                </div>
+            </div>
+            <script>
+                // drag and drop
+                const dropZone = document.getElementById('list');
+                const items = Array.from(document.querySelectorAll('.item'));
+                const submit = document.querySelector('.submit');
+                const result = document.querySelector('.result');
+                let adjacentItem = '';
+                let prevAdjacentItem;
+                let selectedItem = '';
+                const handleDragStart = e => {
+                e.dataTransfer.effectAllowed = 'move';
+                selectedItem = document.getElementById(e.target.id);
+                if (selectedItem.classList.contains('drop')) {
+                    selectedItem.classList.remove('drop');
+                }
+                };  
+                const handleDragEnter = e => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                adjacentItem = document.getElementById(e.target.id);
+                if (adjacentItem.classList.contains('drop')) {
+                    adjacentItem.classList.remove('drop');
+                }
+                if (adjacentItem.classList.contains('item')) {
+                    adjacentItem.classList.add('drop');
+                }
+                };
+                const handleDragLeave = e => {
+                e.preventDefault();
+                if (adjacentItem.classList.contains('drop')) {
+                    adjacentItem.classList.remove('drop');
+                }
+                };
+                const handleDragOver = e => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                };
+                const handleDrop = e => {
+                e.preventDefault();
+                if (adjacentItem.classList.contains('drop')) {
+                    adjacentItem.classList.remove('drop');
+                }
+                if (adjacentItem.classList.contains('item')) {
+                    dropZone.insertBefore(selectedItem, adjacentItem);
+                } else {
+                    dropZone.appendChild(selectedItem);
+                }
+                };
+                const handleDragEnd = e => {
+                e.preventDefault();
+                if (adjacentItem.classList.contains('drop')) {
+                    adjacentItem.classList.remove('drop');
+                }
+                prevAdjacentItem = adjacentItem;
+                adjacentItem = '';
+                };
+                const handleRadioChange = e => {
+                const radio = document.getElementById(e.target.id); 
+                const label = document.querySelector(`label[for=${e.target.id}]`);
+                const radioValue = radio.value;
+                const radioName = radio.name;
+                const radioId = radio.id;
+
+                                // Get the modal
+                var modal = document.getElementById('id01');
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                if (event.target == modal) {
+                modal.style.display = "none";
+                }
+                }
+                
+                 
+                $(document).ready(function(){
+                $("#myBtn").click(function(){
+                $("#myModal").modal();
+                });
+                });
+                 
+                $('#login').on("click", () => {
+                $('#loginModal').modal('show');
+                });
+                $('.closebtn').on("click",()=>{
+                $('#loginModal').modal('hide');
+                });
+                $(".dropdown").hover(
+                function() {
+                $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+                $(this).toggleClass('open');
+                },
+                function() {
+                $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+                $(this).toggleClass('open');
+                }
+                );
+                $('body > div:not(#navbar):not(.carousel-inner)')
+                .css('background-color', '#f1f1f1');
+                const btns = Array.from(document.querySelectorAll('.nav__item'));
+                btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                });
+                });
+                </script>
+                <!-- <script>
+                $(document).ready(function(){
+                $("#myBtn").click(function(){
+                $("#myModal").modal();
+                });
+                });
+                $('#login').on("click", () => {
+                $('#loginModal').modal('show');
+                });
+                $('.closebtn').on("click",()=>{
+                $('#loginModal').modal('hide');
+                });
+                $(".dropdown").hover(
+                function() {
+                $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+                $(this).toggleClass('open');
+                },
+                function() {
+                $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+                $(this).toggleClass('open');
+                }
+                );
+            </script> -->
+        
+
+
+    <!-- create a simple page with bootstrap -->
+
+</body>
+</html>
